@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:44 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/14 21:44:28 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:04:24 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	j = 0;
 	while (s1[j])
 		result[i++] = ((char *)s1)[j++];
-
 	j = 0;
 	while (s2[j])
 		result[i++] = ((char *)s2)[j++];
@@ -59,7 +58,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (result);
 }
 
-int		have_new_line(char *buf)
+int	have_new_line(char *buf)
 {
 	int	i;
 
@@ -67,13 +66,13 @@ int		have_new_line(char *buf)
 	while (buf[i])
 	{
 		if (buf[i] == '\n')
-			return 1;
+			return (1);
 		i++;
 	}
 	return (0);
 }
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+char	*ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;
 
@@ -88,5 +87,5 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 		}
 		dest[i] = '\0';
 	}
-	return (ft_strlen(src));
+	return (dest);
 }

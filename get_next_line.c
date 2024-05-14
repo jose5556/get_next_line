@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/14 22:39:52 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:11:13 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,18 @@ char	*get_next_line(int fd)
 char	*reads_new_line(char *buf, int fd)
 {
 	char	*result;
-	char	*temp;
 
 	result = NULL;
-	while (read(fd, buf, BUFFER_SIZE) > 0)
+	while (read(fd, buf, BUFFER_SIZE) > 0 && !(have_new_line(buf)))
 	{
-		if (!have_new_line(buf))
+		if (!result)
 		{
-			if (!result)
-			{
-				ft_strlcpy(result, buf, 10);
-				write(1, "s", 1);
-			}
-			else
-			{
-				ft_strlcpy(temp, buf, 10);
-				result = ft_strjoin(temp, buf);
-				write(1, "g", 1);
-			}
-
+			result = ft_strlcpy(result, buf, ft_strlen(buf) + 1);
+			continue ;
 		}
-		result = ft_strjoin(result, ft_strrchr(buf, '\n'));
+		result = ft_strjoin(result, buf);
 	}
+	result = ft_strjoin(result, ft_strrchr(buf, '\n'));
 	return (result);
 }
 
