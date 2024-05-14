@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/14 20:16:50 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/14 22:39:52 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,40 @@ char	*get_next_line(int fd);
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
-	//static char	*text[FOPEN_MAX];
+	static char		*buf;
 
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
-	while (read(fd, buf, BUFFER_SIZE) > 0)
-	{
-		checks_new_line(buf);
-	}
-	buf = ft_strdup(ft_strrchr(buf, '\n'));
-	write (1, "l", 1);
-	if (!buf)
-		return (NULL);
-	return (buf);
+	return (reads_new_line(buf, fd));
 }
 
-char	*checks_new_line(char *buf)
+char	*reads_new_line(char *buf, int fd)
 {
-	int		i;
-	char	*second_part;
+	char	*result;
+	char	*temp;
 
-	i = 0;
-	while (buf[i])
+	result = NULL;
+	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
-		if (buf[i] == '\n')
+		if (!have_new_line(buf))
 		{
-			second_part = ft_substr(second_part, i, ft_strlen(buf));
-			break ;
+			if (!result)
+			{
+				ft_strlcpy(result, buf, 10);
+				write(1, "s", 1);
+			}
+			else
+			{
+				ft_strlcpy(temp, buf, 10);
+				result = ft_strjoin(temp, buf);
+				write(1, "g", 1);
+			}
+
 		}
-		i++;
+		result = ft_strjoin(result, ft_strrchr(buf, '\n'));
 	}
-	//buf = ft_strrchr(buf, "\n");
-	return (second_part);
+	return (result);
 }
 
 int	main(void)

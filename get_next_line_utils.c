@@ -6,30 +6,11 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:44 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/14 20:15:04 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:44:28 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*result;
-	size_t	size;
-
-	if (!s)
-		return (NULL);
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	size = ft_strlen(s + start);
-	if (size < len)
-		len = size;
-	result = (char *) malloc((len + 1) * sizeof(char));
-	if (!result)
-		return (NULL);
-	ft_strlcpy(result, s + start, len + 1);
-	return (result);
-}
 
 size_t	ft_strlen(const char *s)
 {
@@ -55,17 +36,41 @@ char	*ft_strrchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*new_string;
-	int		len;
+	char	*result;
+	int		i;
+	int		j;
 
-	len = ft_strlen(s);
-	new_string = (char *) malloc (len * (sizeof(char)) + 1);
-	if (new_string == NULL)
-		return (new_string);
-	ft_strlcpy(new_string, s, len + 1);
-	return (new_string);
+	if (!s1 && !s2)
+		return (NULL);
+	result = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (result == NULL)
+		return (result);
+	i = 0;
+	j = 0;
+	while (s1[j])
+		result[i++] = ((char *)s1)[j++];
+
+	j = 0;
+	while (s2[j])
+		result[i++] = ((char *)s2)[j++];
+	result[i] = 0;
+	return (result);
+}
+
+int		have_new_line(char *buf)
+{
+	int	i;
+
+	i = 0;
+	while (buf[i])
+	{
+		if (buf[i] == '\n')
+			return 1;
+		i++;
+	}
+	return (0);
 }
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
@@ -73,6 +78,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	size_t	i;
 
 	i = 0;
+	dest = malloc(ft_strlen(src) * sizeof(char) + 1);
 	if (size != 0)
 	{
 		while (i < (size - 1) && src[i])
