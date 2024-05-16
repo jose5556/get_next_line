@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/14 23:43:12 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/16 01:18:35 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*reads_new_line(char *buf, int fd)
 				result = ft_strlcpy(result, buf, ft_strlen(buf) + 1);
 				continue ;
 			}
+			result = ft_strjoin(result, buf);
+			continue ;
 		}
 	while (have_new_line(result) > 1)
 	{
