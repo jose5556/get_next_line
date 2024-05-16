@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/16 01:33:57 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/16 01:58:21 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*reads_new_line(char *buf, int fd)
 	char	*result;
 
 	result = NULL;
+	
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
 		if (!have_new_line(buf))
@@ -41,22 +42,28 @@ char	*reads_new_line(char *buf, int fd)
 			result = ft_strjoin(result, buf);
 			continue ;
 		}
-		else if (have_new_line(buf) && !result)
+		else if (have_new_line(buf))
 		{
-			result = ft_strlcpy(result, buf, ft_strlen(buf) + 1);
-			continue ;
+			return (handle_new_line(result, buf));
 		}
-	while (have_new_line(result) > 1)
-	{
-		result = ft_strjoin(result, ft_strrchr(buf, '\n'));
 	}
-	result = ft_strjoin(result, buf);
-	}
-	
 	return (result);
 }
 
-
+char	*handle_new_line(char *result, char *buf)
+{
+	if (!result)
+	{
+		result = ft_strlcpy(result, buf, ft_strlen(buf) + 1);
+		while (have_new_line(result) > 1)
+			result = ft_strrchr(result, '\n');
+		return (result);
+	}
+	result = ft_strjoin(result, buf);
+	while (have_new_line(result) > 1)
+		result = ft_strrchr(result, '\n');
+	return (result);
+}
 
 int	main(void)
 {
