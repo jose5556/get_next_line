@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/19 05:13:48 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/19 08:45:10 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ char	*get_next_line(int fd)
 {
 	static char	*buf;
 
-	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buf)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	if (!buf)
+		buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	return (reads_new_line(buf, fd));
 }
 
@@ -34,11 +35,8 @@ char	*reads_new_line(char *buf, int fd)
 	if (buf[0])
 	{
 		result = ft_strlcpy(result, buf, ft_strlen(buf) + 1);
-		if (have_new_line(result))
-		{
+		if (have_new_line(result) && false--)
 			result = handle_new_line(result);
-			false = 0;
-		}
 	}
 	while (read(fd, buf, BUFFER_SIZE) > 0 && false)
 	{
@@ -60,16 +58,13 @@ char	*handle_new_line(char *result)
 	return (result);
 }
 
-//char	*put_new_line()
-
 int	main(void)
 {
 	int	fd;
 	int	i;
-	
+
 	i = 1;
 	fd = open("./example2.txt", O_RDONLY);
-	
-	//while (i-- > 0)
+	while (i-- > 0)
 		printf("%s", get_next_line(fd));
 }
