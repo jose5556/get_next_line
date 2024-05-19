@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/16 01:58:21 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/19 04:31:02 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_next_line(int fd);
 
 char	*get_next_line(int fd)
 {
-	static char		*buf;
+	static char	*buf;
 
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
@@ -29,47 +29,32 @@ char	*reads_new_line(char *buf, int fd)
 	char	*result;
 
 	result = NULL;
-	
+	if (buf)
+	{
+		result = ft_strlcpy(result, buf, ft_strlen(buf));
+	}
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
-		if (!have_new_line(buf))
+		result = ft_strjoin(result, buf);
+		if (have_new_line(result))
 		{
-			if (!result)
-			{
-				result = ft_strlcpy(result, buf, ft_strlen(buf) + 1);
-				continue ;
-			}
-			result = ft_strjoin(result, buf);
-			continue ;
-		}
-		else if (have_new_line(buf))
-		{
-			return (handle_new_line(result, buf));
+			result = handle_new_line(result);
 		}
 	}
+	buf = ft_strrchr(buf, '\n', 0);
 	return (result);
 }
 
-char	*handle_new_line(char *result, char *buf)
+char	*handle_new_line(char *result)
 {
-	if (!result)
-	{
-		result = ft_strlcpy(result, buf, ft_strlen(buf) + 1);
-		while (have_new_line(result) > 1)
-			result = ft_strrchr(result, '\n');
-		return (result);
-	}
-	result = ft_strjoin(result, buf);
 	while (have_new_line(result) > 1)
-		result = ft_strrchr(result, '\n');
+		result = ft_strrchr(result, '\n', 1);
 	return (result);
 }
 
 int	main(void)
 {
 	int	fd;
-	
-
 	fd = open("./example2.txt", O_RDONLY);
 	
 	printf("%s", get_next_line(fd));

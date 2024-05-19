@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:44 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/14 23:27:31 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/19 04:28:50 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,48 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c, int last)
 {
 	int	i;
 
-	i = ft_strlen(s);
-	while (i >= 0)
+	if (last)
 	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i--;
+		i = ft_strlen(s);
+		while (i >= 0)
+		{
+			if (s[i] == (char)c)
+				return ((char *)(s + i));
+			i--;
+		}
+	}
+	else
+	{
+		i = 0;
+		while (s[i])
+		{
+			if (s[i] == (char)c)
+				return (((char *)s) + i + 1);
+			i++;
+		}
+		if ((char)c == '\0')
+			return ((char *)s + i);
 	}
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*result;
 	int		i;
 	int		j;
 
-	if (!s1 && !s2)
+	if (!s2)
 		return (NULL);
+	if (!s1)
+	{
+		s1 = ft_strlcpy(s1, s2, ft_strlen(s2));
+		return (s1);
+	}
 	result = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (result == NULL)
 		return (result);
@@ -61,7 +81,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 int	have_new_line(char *buf)
 {
 	int	i;
-	int j;
+	int	j;
 
 	j = 0;
 	i = 0;
