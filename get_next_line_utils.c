@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:44 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/19 04:28:50 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/19 04:38:40 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	if (!s1)
 	{
-		s1 = ft_strlcpy(s1, s2, ft_strlen(s2));
+		s1 = ft_strlcpy(s1, s2, ft_strlen(s2) + 1);
 		return (s1);
 	}
 	result = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1));

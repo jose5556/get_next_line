@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/19 04:31:02 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/19 04:53:51 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,26 @@ char	*get_next_line(int fd)
 char	*reads_new_line(char *buf, int fd)
 {
 	char	*result;
+	int		false;
 
+	false = 1;
 	result = NULL;
-	if (buf)
+	if (buf[0])
 	{
-		result = ft_strlcpy(result, buf, ft_strlen(buf));
+		result = ft_strlcpy(result, buf, ft_strlen(buf) + 1);
+		if (have_new_line(result))
+		{
+			result = handle_new_line(result);
+			false = 0;
+		}
 	}
-	while (read(fd, buf, BUFFER_SIZE) > 0)
+	while (read(fd, buf, BUFFER_SIZE) > 0 && false)
 	{
 		result = ft_strjoin(result, buf);
 		if (have_new_line(result))
 		{
 			result = handle_new_line(result);
+			break ;
 		}
 	}
 	buf = ft_strrchr(buf, '\n', 0);
@@ -55,6 +63,7 @@ char	*handle_new_line(char *result)
 int	main(void)
 {
 	int	fd;
+	
 	fd = open("./example2.txt", O_RDONLY);
 	
 	printf("%s", get_next_line(fd));
