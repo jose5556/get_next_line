@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:54 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/19 04:29:05 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/19 05:06:13 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 size_t	ft_strlen(const char *s);
 char	*ft_strlcpy(char *dest, const char *src, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strrchr(const char *s, int c, int last);
+char	*ft_strrchr(char *s, int c, int last);
 int		have_new_line(char *buf);
 char	*get_next_line(int fd);
 char	*reads_new_line(char *buf, int fd);

@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/19 04:53:51 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/19 05:13:48 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,16 @@ char	*handle_new_line(char *result)
 	return (result);
 }
 
+//char	*put_new_line()
+
 int	main(void)
 {
 	int	fd;
+	int	i;
 	
+	i = 1;
 	fd = open("./example2.txt", O_RDONLY);
 	
-	printf("%s", get_next_line(fd));
+	//while (i-- > 0)
+		printf("%s", get_next_line(fd));
 }

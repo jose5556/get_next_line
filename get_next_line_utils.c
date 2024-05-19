@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:44 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/19 04:38:40 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/19 05:14:24 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strrchr(const char *s, int c, int last)
+char	*ft_strrchr(char *s, int c, int last)
 {
 	int	i;
 
@@ -32,7 +32,10 @@ char	*ft_strrchr(const char *s, int c, int last)
 		while (i >= 0)
 		{
 			if (s[i] == (char)c)
-				return ((char *)(s + i));
+			{
+				s[i] = '\0';
+				return ((char *)(s));
+			}
 			i--;
 		}
 	}
