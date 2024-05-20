@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:44 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/19 08:43:15 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:29:51 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char	*ft_strrchr(char *s, int c, int last)
 	}
 	else
 	{
-		while (s)
+		while (*s)
 		{
-			if (s == (char)c)
+			if (*s == (char)c)
 				return (((char *)s) + 1);
 			s++;
 		}
@@ -78,22 +78,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (result);
 }
 
-int	have_new_line(char *buf)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (buf[i])
-	{
-		if (buf[i] == '\n')
-			j++;
-		i++;
-	}
-	return (j);
-}
-
 char	*ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;
@@ -110,4 +94,20 @@ char	*ft_strlcpy(char *dest, const char *src, size_t size)
 		dest[i] = '\0';
 	}
 	return (dest);
+}
+
+int	have_new_line(char *buf)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (buf[i])
+	{
+		if (buf[i] == '\n')
+			j++;
+		i++;
+	}
+	return (j);
 }
