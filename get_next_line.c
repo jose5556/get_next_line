@@ -6,13 +6,13 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/20 20:02:10 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/20 20:22:51 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char	*get_next_line1(int fd)
 {
 	static char	*buf;
 
@@ -22,10 +22,11 @@ char	*get_next_line(int fd)
 		buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
-	return (handle_result(&buf, fd));
+	
+	return (handle_result1(&buf, fd));
 }
 
-char	*handle_result(char **buf, int fd)
+char	*handle_result1(char **buf, int fd)
 {
 	char	*result;
 	int		true;
@@ -38,10 +39,10 @@ char	*handle_result(char **buf, int fd)
 	{
 		ft_strlcpy(result, *buf, ft_strlen(*buf) + 1);
 		if (have_new_line(result) && true++)
-			result = handle_new_line(result);
+			result = handle_new_line1(result);
 	}
 	if (!true)
-		result = reads_new_line(*buf, fd, result);
+		result = reads_new_line1(*buf, fd, result);
 	*buf = ft_strrchr(*buf, '\n', 0);
 	if (result && result[0] == '\0')
 	{
@@ -51,7 +52,7 @@ char	*handle_result(char **buf, int fd)
 	return (result);
 }
 
-char	*reads_new_line(char *buf, int fd, char *result)
+char	*reads_new_line1(char *buf, int fd, char *result)
 {
 	int		char_read;
 	char	*temp;
@@ -75,12 +76,12 @@ char	*reads_new_line(char *buf, int fd, char *result)
 			result = ft_strjoin(result, buf);
 		free(temp);
 		if (have_new_line(result))
-			return (result = handle_new_line(result));
+			return (result = handle_new_line1(result));
 	}
 	return (NULL);
 }
 
-char	*handle_new_line(char *result)
+char	*handle_new_line1(char *result)
 {
 	while (have_new_line(result))
 	{
@@ -95,13 +96,4 @@ char	*handle_new_line(char *result)
 	return (NULL);
 }
 
-int	main(void)
-{
-	int	fd;
-	int	i;
 
-	i = 3;
-	fd = open("./example2.txt", O_RDONLY);
-	while (i-- > 0)
-		printf("%s", get_next_line(fd));
-}
