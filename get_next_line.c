@@ -6,13 +6,11 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/20 17:42:50 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:52:51 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*get_next_line(int fd);
 
 char	*get_next_line(int fd)
 {
@@ -24,31 +22,26 @@ char	*get_next_line(int fd)
 		buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
-	return (reads_new_line(&buf, fd));
+	return (handle_result(&buf, fd));
 }
 
-char	*reads_new_line(char **buf, int fd)
+char	*handle_result(char **buf, int fd)
 {
 	char	*result;
-	int		false;
+	int		true;
 
-	false = 1;
-	result = NULL;
+	true = 0;
+	result = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
 	if (*(buf[0]))
 	{
 		result = ft_strlcpy(result, *buf, ft_strlen(*buf) + 1);
-		if (have_new_line(result) && false--)
+		if (have_new_line(result) && true++)
 			result = handle_new_line(result);
 	}
-	while (read(fd, *buf, BUFFER_SIZE) > 0 && false)
-	{
-		result = ft_strjoin(result, *buf);
-		if (have_new_line(result))
-		{
-			result = handle_new_line(result);
-			break ;
-		}
-	}
+	if (!true)
+		result = reads_new_line(*buf, fd, &result);
 	*buf = ft_strrchr(*buf, '\n', 0);
 	if (result && result[0] == '\0')
 	{
@@ -56,6 +49,35 @@ char	*reads_new_line(char **buf, int fd)
 		result = NULL;
 	}
 	return (result);
+}
+
+char	*reads_new_line(char *buf, int fd, char **result)
+{
+	int		char_read;
+	char	*temp;
+
+	char_read = 1;
+	temp = NULL;
+	while (char_read)
+	{
+		char_read = read(fd, buf, BUFFER_SIZE);
+		if (!char_read)
+			return (*result);
+		else if (char_read < BUFFER_SIZE)
+		{
+			temp = malloc((char_read + 1) * sizeof(char));
+			if (!temp)
+				return (NULL);
+			temp = ft_strlcpy(temp, buf, char_read + 1);
+			*result = ft_strjoin(*result, temp);
+		}
+		if (!temp)
+			*result = ft_strjoin(*result, buf);
+		free(temp);
+		if (have_new_line(*result))
+			return (*result = handle_new_line(*result));
+	}
+	return (*result);
 }
 
 char	*handle_new_line(char *result)
@@ -66,11 +88,11 @@ char	*handle_new_line(char *result)
 		{
 			result = ft_strrchr(result, '\n', 1);
 			result = ft_strjoin(result, "\n\0");
-			break ;
+			return (result);
 		}
 		result = ft_strrchr(result, '\n', 1);
 	}
-	return (result);
+	return (NULL);
 }
 
 int	main(void)
