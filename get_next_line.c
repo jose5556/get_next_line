@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:32 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/20 19:52:51 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/20 20:02:10 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ char	*handle_result(char **buf, int fd)
 		return (NULL);
 	if (*(buf[0]))
 	{
-		result = ft_strlcpy(result, *buf, ft_strlen(*buf) + 1);
+		ft_strlcpy(result, *buf, ft_strlen(*buf) + 1);
 		if (have_new_line(result) && true++)
 			result = handle_new_line(result);
 	}
 	if (!true)
-		result = reads_new_line(*buf, fd, &result);
+		result = reads_new_line(*buf, fd, result);
 	*buf = ft_strrchr(*buf, '\n', 0);
 	if (result && result[0] == '\0')
 	{
@@ -51,7 +51,7 @@ char	*handle_result(char **buf, int fd)
 	return (result);
 }
 
-char	*reads_new_line(char *buf, int fd, char **result)
+char	*reads_new_line(char *buf, int fd, char *result)
 {
 	int		char_read;
 	char	*temp;
@@ -62,22 +62,22 @@ char	*reads_new_line(char *buf, int fd, char **result)
 	{
 		char_read = read(fd, buf, BUFFER_SIZE);
 		if (!char_read)
-			return (*result);
+			return (result);
 		else if (char_read < BUFFER_SIZE)
 		{
 			temp = malloc((char_read + 1) * sizeof(char));
 			if (!temp)
 				return (NULL);
-			temp = ft_strlcpy(temp, buf, char_read + 1);
-			*result = ft_strjoin(*result, temp);
+			ft_strlcpy(temp, buf, char_read + 1);
+			result = ft_strjoin(result, temp);
 		}
 		if (!temp)
-			*result = ft_strjoin(*result, buf);
+			result = ft_strjoin(result, buf);
 		free(temp);
-		if (have_new_line(*result))
-			return (*result = handle_new_line(*result));
+		if (have_new_line(result))
+			return (result = handle_new_line(result));
 	}
-	return (*result);
+	return (NULL);
 }
 
 char	*handle_new_line(char *result)
