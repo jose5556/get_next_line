@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:54 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/23 14:40:52 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:12:07 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int		have_new_line(char *buf);
 char	*get_next_line(int fd);
 char	*handle_cache(char *cache);
 char	*reads_new_line(int fd);
-char	*call_funcs(int fd, int first_time, char *result, char **cache);
+char	*call_funcs(int fd, char *result, char **cache);
 
 #endif
