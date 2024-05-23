@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:44 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/20 21:23:28 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:45:26 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strrchr(char *s, int c, int last)
 		{
 			if (s[i] == (char)c)
 			{
-				s[i] = '\0'; // test s[i + 1] = '\0';
+				s[i] = '\0';
 				return (s);
 			}
 			i--;
@@ -44,7 +44,7 @@ char	*ft_strrchr(char *s, int c, int last)
 		while (*s)
 		{
 			if (*s == (char)c)
-				return (((char *)s) + 1);
+				return (s + 1);
 			s++;
 		}
 	}
@@ -88,22 +88,6 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 		dest[i] = '\0';
 	}
 	return (ft_strlen(src));
-}
-
-int	have_new_line(char *buf)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (buf[i])
-	{
-		if (buf[i] == '\n')
-			j++;
-		i++;
-	}
-	return (j);
 }
 
 char	*ft_strdup(const char *s)
