@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:22:05 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/23 14:46:35 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:53:54 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,9 @@ int	main(void)
 	int	fd;
 	int	i;
 
-	i = 4;
+	i = 3;
 	fd = open("./example2.txt", O_RDONLY);
 	while (i-- > 0)
 		printf("%s", get_next_line(fd));
+	close(fd);
 }
