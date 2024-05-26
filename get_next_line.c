@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:22:05 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/26 15:38:15 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:42:52 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ char	*call_funcs(int fd, char *result, char **cache)
 	char	*temp;
 	char	*result_temp;
 
-	if (!(*cache) || !(*cache[0]))
+	if (!(*cache[0]))
 	{
-		
 		*cache = reads_new_line(fd);
 		if (!(*cache))
 			return (NULL);
@@ -49,17 +48,11 @@ char	*call_funcs(int fd, char *result, char **cache)
 	{
 		temp = ft_strdup(*cache);
 		if (!temp)
-		{
-			free(result);	
 			return (NULL);
-		}
 		result_temp = ft_strjoin(result, handle_cache(temp));
 		free(temp);
 		if (!result_temp)
-		{
-			free (result);
 			return (NULL);
-		}
 		free(result);
 		result = result_temp;
 		if (have_new_line(*cache))
@@ -114,7 +107,7 @@ char	*reads_new_line(int fd)
 	char_read = read(fd, buf, BUFFER_SIZE);
 	if (char_read <= 0)
 	{
-		free(buf);		
+		free(buf);
 		return (NULL);
 	}
 	buf[char_read] = '\0';
@@ -152,4 +145,5 @@ int	main(void)
 		free(line);
 	}
 	close(fd);
+	return (0);
 }

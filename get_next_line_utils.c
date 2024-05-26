@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:44 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/26 15:00:32 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:41:04 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		i;
 	int		j;
 
-	if (!s2)
+	if (!s2 || !s1)
 		return (NULL);
 	result = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (result == NULL)
