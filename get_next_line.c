@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:22:05 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/23 15:39:25 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/26 15:38:15 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	result = malloc(1);
 	if (!result)
+	{
+		free(cache);
 		return (NULL);
+	}
 	result[0] = '\0';
 	return (call_funcs(fd, result, &cache));
 }
@@ -33,22 +36,32 @@ char	*get_next_line(int fd)
 char	*call_funcs(int fd, char *result, char **cache)
 {
 	char	*temp;
+	char	*result_temp;
 
-	if (!(*cache[0]))
+	if (!(*cache) || !(*cache[0]))
 	{
+		
 		*cache = reads_new_line(fd);
-		if (!(*cache[0]))
+		if (!(*cache))
 			return (NULL);
 	}
 	while ((*cache)[0])
 	{
 		temp = ft_strdup(*cache);
 		if (!temp)
+		{
+			free(result);	
 			return (NULL);
-		result = ft_strjoin(result, handle_cache(temp));
+		}
+		result_temp = ft_strjoin(result, handle_cache(temp));
 		free(temp);
-		if (!result)
+		if (!result_temp)
+		{
+			free (result);
 			return (NULL);
+		}
+		free(result);
+		result = result_temp;
 		if (have_new_line(*cache))
 		{
 			*cache = ft_strrchr(*cache, '\n', 0);
@@ -56,10 +69,7 @@ char	*call_funcs(int fd, char *result, char **cache)
 		}
 		*cache = reads_new_line(fd);
 		if (!(*cache))
-		{
 			break ;
-			free(cache);
-		}
 	}
 	return (result);
 }
@@ -67,16 +77,25 @@ char	*call_funcs(int fd, char *result, char **cache)
 char	*handle_cache(char *cache)
 {
 	char	*result;
+	char	*temp;
+	char	*new_cache;
 
 	while (have_new_line(cache))
 	{
 		if (have_new_line(cache) == 1)
 		{
-			cache = ft_strrchr(cache, '\n', 1);
-			cache = ft_strjoin(cache, "\n\0");
-			break ;
+			temp = ft_strrchr(cache, '\n', 1);
+			if (temp)
+			{
+				new_cache = ft_strjoin(temp, "\n\0");
+				free(cache);
+				cache = new_cache;
+				break ;
+			}
 		}
-		cache = ft_strrchr(cache, '\n', 1);
+		temp = ft_strrchr(cache, '\n', 1);
+		if (temp)
+			cache = temp;
 	}
 	result = ft_strdup(cache);
 	if (!result)
@@ -126,10 +145,10 @@ int	main(void)
 
 	i = 0;
 	fd = open("./example2.txt", O_RDONLY);
-	while (i++ < 4)
+	while (i++ < 3)
 	{
 		line = get_next_line(fd);
-		printf("line [%02d]: %s", i, line);
+		printf("line %d %s", i, line);
 		free(line);
 	}
 	close(fd);
