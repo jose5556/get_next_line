@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 12:09:43 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/28 16:45:33 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:24:09 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = read_file(fd, buffer);
+	buffer = read_line(fd, buffer);
 	if (!buffer)
 		return (NULL);
 	result = filter_buffer(buffer);
@@ -54,7 +54,7 @@ char	*filter_buffer(char *buffer)
 	return (result);
 }
 
-char	*read_file(int fd, char *buffer)
+char	*read_line(int fd, char *buffer)
 {
 	char	*temp_buf;
 	int		bytes_read;

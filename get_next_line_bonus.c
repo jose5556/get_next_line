@@ -6,24 +6,24 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:53:22 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/28 16:56:13 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:16:04 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[1024];
+	static char	*buffer[FD_MAX];
 	char		*result;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer[fd] = read_file(fd, buffer);
-	if (!buffer)
+	buffer[fd] = read_line(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	result = filter_buffer(buffer);
-	buffer[fd] = handle_next(buffer);
+	result = filter_buffer(buffer[fd]);
+	buffer[fd] = handle_next(buffer[fd]);
 	return (result);
 }
 
@@ -54,7 +54,7 @@ char	*filter_buffer(char *buffer)
 	return (result);
 }
 
-char	*read_file(int fd, char *buffer)
+char	*read_line(int fd, char *buffer)
 {
 	char	*temp_buf;
 	int		bytes_read;

@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:54 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/28 13:33:12 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:24:14 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strjoin_free(char *s1, char *s2);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strchr(const char *s, int c);
 char	*filter_buffer(char *buffer);
-char	*read_file(int fd, char *buffer);
+char	*read_line(int fd, char *buffer);
 char	*handle_next(char *buffer);
 char	*get_next_line(int fd);
 

@@ -6,11 +6,11 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:53:17 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/28 16:54:35 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:02:54 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {
