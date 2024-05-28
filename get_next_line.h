@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 03:56:54 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/26 20:41:16 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:33:12 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@
 # include <stdlib.h>
 
 size_t	ft_strlen(const char *s);
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strrchr(char *s, int c, int last);
-char	*ft_strdup(const char *s);
-int		have_new_line(char *buf);
+char	*ft_strjoin_free(char *s1, char *s2);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strchr(const char *s, int c);
+char	*filter_buffer(char *buffer);
+char	*read_file(int fd, char *buffer);
+char	*handle_next(char *buffer);
 char	*get_next_line(int fd);
-char	*handle_cache(char *cache);
-char	*reads_new_line(int fd);
-char	*call_funcs(int fd, char *result, char **cache);
 
 #endif
