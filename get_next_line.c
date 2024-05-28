@@ -6,7 +6,7 @@
 /*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 12:09:43 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/05/28 13:38:26 by joseoliv         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:45:33 by joseoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,26 @@ char	*filter_buffer(char *buffer)
 {
 	int		i;
 	int		j;
+	int		k;
 	char	*result;
 
 	i = 0;
-	while(buffer[i] && buffer[i] != '\n')
+	if (!buffer[i])
+		return (NULL);
+	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	result = ft_calloc(i + 2, sizeof(char));
+	k = i;
+	if (buffer[i] == '\n')
+		k++;
+	result = ft_calloc(k + 1, sizeof(char));
+	if (!result)
+		return (NULL);
 	j = 0;
-	while (j < i)
+	while (j <= i)
 	{
 		result[j] = buffer[j];
 		j++;
 	}
-	j++;
-	if (buffer[j] && buffer[j] == '\n')
-		result[j] = '\n';
 	return (result);
 }
 
@@ -56,20 +61,21 @@ char	*read_file(int fd, char *buffer)
 
 	if (!buffer)
 		buffer = ft_calloc(1, sizeof(char));
+	if (!buffer)
+		return (NULL);
 	temp_buf = ft_calloc(BUFFER_SIZE + 1, 1);
 	bytes_read = 1;
-	while (bytes_read > 0)
+	while (bytes_read > 0 && !ft_strchr(buffer, '\n'))
 	{
 		bytes_read = read(fd, temp_buf, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
 			free(temp_buf);
+			free(buffer);
 			return (NULL);
 		}
 		temp_buf[bytes_read] = '\0';
 		buffer = ft_strjoin_free(buffer, temp_buf);
-		if (ft_strchr(temp_buf, '\n'))
-			break ;
 	}
 	free(temp_buf);
 	return (buffer);
@@ -103,20 +109,19 @@ char	*handle_next(char *buffer)
 	return (result);
 }
 
-int	main(void)
+/* int	main(void)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	int		i;
 	char	*line;
 
 	i = 0;
 	fd = open("./example2.txt", O_RDONLY);
-	while (i++ < 4)
+	while (line = get_next_line(fd+1))
 	{
-		line = get_next_line(fd);
-		printf("line %d [%s] ", i, line);
+		printf("%s", line);
 		free(line);
 	}
 	close(fd);
 	return (0);
-}
+} */
