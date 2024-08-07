@@ -23,7 +23,7 @@ For more detailed information about the implementation, please refer to the proj
 
 ### Requirements
 
-The function is written in C language and thus needs the **`cc` compiler** to run.
+The function is written in C language and therefore requires the **`cc`** compiler to be executed.
 
 ### Instructions
 
