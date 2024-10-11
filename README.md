@@ -13,7 +13,7 @@
 
 This is the get_next_line project, completed during my studies at School 42. The goal of this project is to create a function that reads a line from a file descriptor, one at a time, regardless of how many read calls are required.
 
-## Overview
+## 🔍 Overview
 
 In this project, I have implemented a function that reads a line from a file descriptor. The function dynamically allocates memory to handle lines of arbitrary length and manages buffer overflow efficiently. It is designed to work seamlessly with different file descriptors including standard input, files, and network sockets.
 
