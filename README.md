@@ -54,7 +54,7 @@ while ((line = get_next_line(fd)))
 close(fd);
 ```
 
-## Note
+# 📌Note
 
 Please ensure that you define BUFFER_SIZE before compilation as it determines the buffer's size used in the function. 
 You can adjust it based on your needs, but if you are unsure what value to put in, ignore that part because the code already has a standard number, which is 42.
