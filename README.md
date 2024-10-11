@@ -1,5 +1,5 @@
 <h1 align="center">
-	📄 get_next_line
+	📄 Get_next_line
 </h1>
 
 <p align="center">
