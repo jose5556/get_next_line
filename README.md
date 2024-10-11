@@ -9,17 +9,17 @@
 	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jose5556/get_next_line?color=green" />
 </p>
 
-## 💡 About the project
+# 💡 About the project
 
 This is the get_next_line project, completed during my studies at School 42. The goal of this project is to create a function that reads a line from a file descriptor, one at a time, regardless of how many read calls are required.
 
-## 🔍 Overview
+# 🔍 Overview
 
 In this project, I have implemented a function that reads a line from a file descriptor. The function dynamically allocates memory to handle lines of arbitrary length and manages buffer overflow efficiently. It is designed to work seamlessly with different file descriptors including standard input, files, and network sockets.
 
 For more detailed information about the implementation, please refer to the project files and documentation.
 
-## 🛠️ Usage
+# 🛠️ Usage
 
 ### Requirements
 
